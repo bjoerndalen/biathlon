@@ -14,7 +14,6 @@ public class CountryDaoJpa extends GenericDaoJpa<Country> implements IDaoCountry
 	public CountryDaoJpa(EntityManagerFactory emf) {
 		super(Country.class, emf);
 	}
-
 	@Override
 	public Country findByName(String name) throws PersistenceException {
 		String query = "Select x From country x where x.name="+name+";";
