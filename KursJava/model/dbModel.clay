@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="ac2b61:13ba3e6a50b:-8000" name="dbModel" sql-dialect-id="jp.azzurri.clay.dialect.Postgre_7_3_Dialect" version="1.0">
+<schema-list>
+<schema id="ac2b61:13ba3e6a50b:-7ffd" name="DEFAULT_SCHEMA">
+<table-list>
+<table alias="Страна" id="ac2b61:13ba3e6a50b:-7fff" name="Country">
+<column-list>
+<column alias="Номер Страны" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7ffa" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Название" auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7ff9" mandatory="true" name="name">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Максимальное число спортсменов" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7ff8" mandatory="true" name="maxSportsman">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Кол-во очков" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7ff7" mandatory="true" name="points">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7ffe" name="PK_COUNTRY">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальная страна" id="ac2b61:13ba3e6a50b:-7d93" name="UQ_Contry_1">
+<unique-key-column name="name"/>
+</unique-key>
+<unique-key alias="Первичный ключ" id="ac2b61:13ba3e6a50b:-7d90" name="UQ_Contry_2">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table alias="Спортсмен" id="ac2b61:13ba3e6a50b:-7ff4" name="Sportsman">
+<column-list>
+<column alias="Номер спортсмена" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7ff0" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Имя спортсмена" auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fef" mandatory="true" name="fio">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Кол-во очков" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7fee" mandatory="true" name="points">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Кол-во кубков в которых принимает участие" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7fed" mandatory="false" name="cups">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Процент стрельбы" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="17a6926:13bae960078:-7f22" mandatory="true" name="shooting">
+<data-type name="REAL" selected-variant-pattern="REAL"/>
+</column>
+<column alias="Пол" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fec" mandatory="true" name="sex">
+<data-type name="BOOLEAN" selected-variant-pattern="BOOLEAN"/>
+</column>
+<column alias="Пароль" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7feb" mandatory="true" name="password">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Номер Страны" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fdc" mandatory="true" name="idContry">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7ff3" name="PK_SPORTSMAN">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Унакальный номер спортсмена" id="ac2b61:13ba3e6a50b:-7d85" name="UQ_Sportsman_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+<foreign-key-list>
+<foreign-key alias="Представляет страну" id="ac2b61:13ba3e6a50b:-7f5b" name="FK_Sportsman_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="PK_COUNTRY" referenced-table="Country" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idContry" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Результат" id="ac2b61:13ba3e6a50b:-7fea" name="Result">
+<column-list>
+<column alias="Номер Результата" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fe6" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Занятое место" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fe5" mandatory="true" name="place">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Кол-во промахов" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7fe4" mandatory="true" name="shFalt">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Общее время" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fe3" mandatory="true" name="allTime">
+<data-type name="TIME" selected-variant-pattern="TIME"/>
+</column>
+<column alias="Время Без стрельбы" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fe2" mandatory="true" name="timeWOShotting">
+<data-type name="TIME" selected-variant-pattern="TIME"/>
+</column>
+<column alias="Кол-во заработанных очков" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7fe1" mandatory="true" name="newPoints">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Номер спортсмена" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fe0" mandatory="true" name="idSportsman">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Номер гонки" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7fdf" mandatory="true" name="idRace">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7fe9" name="PK_RESULT">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Унакальный номер результата" id="ac2b61:13ba3e6a50b:-7d80" name="UQ_Result_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+<foreign-key-list>
+<foreign-key alias="Принимает участие" id="ac2b61:13ba3e6a50b:-7eca" name="FK_Result_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="PK_SPORTSMAN" referenced-table="Sportsman" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idSportsman" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key alias="Проведение гонки" id="ac2b61:13ba3e6a50b:-7e95" name="FK_Result_2" on-delete="CASCADE" on-update="CASCADE" referenced-key="PK_RACE" referenced-table="Race" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idRace" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Гонка" id="ac2b61:13ba3e6a50b:-7f47" name="Race">
+<column-list>
+<column alias="Номер гонки" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f43" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Название гонки" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f42" mandatory="true" name="raceName">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Место проведения" auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f41" mandatory="true" name="scene">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Время проведения" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f40" mandatory="true" name="raceTime">
+<data-type name="TIMESTAMP" selected-variant-pattern="TIMESTAMP WITH TIME ZONE"/>
+</column>
+<column alias="Кол-во стартующих" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f3f" mandatory="false" name="startCount">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Кол-во финиширующих" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f3e" mandatory="false" name="finishCount">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Номер судьи" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f3d" mandatory="true" name="idReferee">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Номер кубка" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f3c" mandatory="true" name="idCup">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7f46" name="PK_RACE">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальный номер гонки" id="ac2b61:13ba3e6a50b:-7d7d" name="UQ_Race_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+<foreign-key-list>
+<foreign-key alias="Состоит из" id="ac2b61:13ba3e6a50b:-7e5e" name="FK_Race_1" on-delete="CASCADE" on-update="CASCADE" referenced-key="PK_CUP" referenced-table="Cup" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idCup" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key alias="Фиксирует" id="17a6926:13bae960078:-7f76" name="FK_Race_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_REFEREE" referenced-table="Referee" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idReferee" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table alias="Кубок" id="ac2b61:13ba3e6a50b:-7f3b" name="Cup">
+<column-list>
+<column alias="Номер кубка" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f37" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Название кубка" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f36" mandatory="true" name="cupName">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Рейтинг" auto-increment="false" column-size="0" decimal-digits="0" default-value="0" id="ac2b61:13ba3e6a50b:-7f35" mandatory="false" name="rating">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Количество гонок" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f34" mandatory="true" name="raceCount">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Количество стран учасниц" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f33" mandatory="true" name="contryCount">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7f3a" name="PK_CUP">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальный номер кубка" id="ac2b61:13ba3e6a50b:-7d72" name="UQ_Cup_1">
+<unique-key-column name="id"/>
+</unique-key>
+<unique-key alias="Уникальное название кубка" id="ac2b61:13ba3e6a50b:-7d71" name="UQ_Cup_2">
+<unique-key-column name="cupName"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table alias="Судья" id="ac2b61:13ba3e6a50b:-7f32" name="Referee">
+<column-list>
+<column alias="Номер судьи" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f2e" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="ФИО" auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f2d" mandatory="true" name="fio">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Страна" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f2c" mandatory="true" name="contry">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Ранг" auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f2b" mandatory="false" name="rang">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Пароль" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f2a" mandatory="true" name="password">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7f31" name="PK_REFEREE">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальный номер судьи" id="ac2b61:13ba3e6a50b:-7d6e" name="UQ_Referee_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table alias="Пользователи" id="ac2b61:13ba3e6a50b:-7f28" name="Users">
+<column-list>
+<column alias="Номер пользователя" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f24" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="E-mail" auto-increment="false" column-size="20" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f23" mandatory="true" name="e-mail">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Пароль" auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f22" mandatory="true" name="password">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Логин" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f21" mandatory="true" name="login">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7f27" name="PK_USERS">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальный номер пользователя" id="ac2b61:13ba3e6a50b:-7d6b" name="UQ_Users_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+</table>
+<table alias="Сообщение" id="ac2b61:13ba3e6a50b:-7f20" name="Message">
+<column-list>
+<column alias="Номер сообщения" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f1c" mandatory="true" name="id">
+<data-type name="SERIAL" selected-variant-pattern="SERIAL"/>
+</column>
+<column alias="Номер спортсмена" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f1b" mandatory="true" name="idSportsman">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Номер судьи" auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f1a" mandatory="true" name="idReferee">
+<data-type name="INTEGER" selected-variant-pattern="INTEGER"/>
+</column>
+<column alias="Имя отправителя" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f19" mandatory="true" name="whoName">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Имя получателя" auto-increment="false" column-size="30" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f18" mandatory="true" name="whomName">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+<column alias="Текст сообщения" auto-increment="false" column-size="300" decimal-digits="0" default-value="" id="ac2b61:13ba3e6a50b:-7f17" mandatory="true" name="textMsg">
+<data-type name="CHARACTER VARYING" selected-variant-pattern="CHARACTER VARYING(%n)"/>
+</column>
+</column-list>
+<primary-key id="ac2b61:13ba3e6a50b:-7f1f" name="PK_MESSAGE">
+<primary-key-column name="id"/>
+</primary-key>
+<unique-key-list>
+<unique-key alias="Уникальный номер сообщения" id="ac2b61:13ba3e6a50b:-7d6a" name="UQ_Message_1">
+<unique-key-column name="id"/>
+</unique-key>
+</unique-key-list>
+<foreign-key-list>
+<foreign-key alias="Работа с сообщениями" id="ac2b61:13ba3e6a50b:-7df6" name="FK_Message_1" on-delete="NO_ACTION" on-update="CASCADE" referenced-key="PK_REFEREE" referenced-table="Referee" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idReferee" referenced-key-column-name="id"/>
+</foreign-key>
+<foreign-key alias="Работа с сообщениями" id="ac2b61:13ba3e6a50b:-7db6" name="FK_Message_2" on-delete="NO_ACTION" on-update="CASCADE" referenced-key="PK_SPORTSMAN" referenced-table="Sportsman" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="1..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="idSportsman" referenced-key-column-name="id"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="84" refid="ac2b61:13ba3e6a50b:-7fff" width="271" x="5" y="16"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7ff4" x="8" y="140"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7fea" x="398" y="130"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7f47" x="649" y="154"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7f3b" x="523" y="9"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7f32" x="575" y="334"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7f28" x="286" y="16"/>
+<table-figure refid="ac2b61:13ba3e6a50b:-7f20" x="112" y="316"/>
+</diagram>
+</clay-model>
