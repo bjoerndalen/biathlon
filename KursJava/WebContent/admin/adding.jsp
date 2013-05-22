@@ -1,8 +1,11 @@
+<%@page import="service.ServiceFactory"%>
 <%@page import="DBAdmin.DBAdminWorking"%>
 <%@page import="model.*" %>
 <%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="org.apache.commons.lang.StringUtils"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 html>
 <head>
@@ -16,6 +19,50 @@ html>
 </head>
 
 <body>
+
+<jsp:useBean id="newSp" scope="page" class="model.Sportsman"></jsp:useBean>
+<jsp:setProperty property="fio" name="newSp" param="fio"/>
+<jsp:setProperty property="password" name="newSp" param="password"/>
+<jsp:useBean id="fnsp" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
+<jsp:setProperty property="*" name="fnsp"/>
+
+
+<c:if test="${not empty newSp.fio}">
+	<%
+	System.out.println(fnsp.getCntr());
+		Country cntr = ServiceFactory.DEFAULT.getCountryService().findByName(fnsp.getCntr());
+	%>
+	<c:choose>
+		<c:when test="${fnsp.referee}">
+			<%
+				System.out.println("Enter");
+				Referee ref= new Referee();
+				ref.setContry(fnsp.getCntr());
+				ref.setFio(newSp.getFio());
+				ref.setPassword(newSp.getPassword());				
+				ServiceFactory.DEFAULT.getRefereeService().addEntity(ref);
+			%>
+		</c:when>
+		<c:when test="${!fnsp.referee }">
+			<%
+				Sportsman spman = new Sportsman();
+				spman.setCountry(cntr);
+				spman.setFio(newSp.getFio());
+				spman.setPassword(newSp.getPassword());
+				spman.setCups(0);
+				spman.setShooting((float)0.0);
+				spman.setPoints(0);
+				if(fnsp.getPol()=="Male"){
+					spman.setSex(true);
+				}else{
+					spman.setSex(false);
+				}
+				ServiceFactory.DEFAULT.getSportsmanService().addEntity(spman);
+			%>
+		</c:when>
+	</c:choose>
+</c:if>
+
 
 <div class="container">
   <header>
@@ -60,7 +107,7 @@ html>
   <article>
   	<p style="font-size:18px;"><center>Добавление нового пользователя в систему</center></p>
   	      <p><b>Должность пользователя :</b><br>
-  <form action="deleting.jsp" method="get" id="1" enctype="multipart/form-data">
+  <form action="adding.jsp" method="post">
    <select name="role">
   <option>Спортсмен</option>
   <option>Судья</option>
@@ -69,11 +116,12 @@ html>
   <p>Country: </b>
   <select name="cntr">
   <%
-  Collection<Country> lst = DBAdminWorking.getInstance().getCountry();
-  for(Country cntr:lst){
-	  %>
-	  <option><%= cntr.getName()%></option>  
-  <%}%>
+	  Collection<Country> lst = DBAdminWorking.getInstance().getCountry();
+	  pageContext.setAttribute("lst",lst );
+  %>
+  <c:forEach var="buf" items="${lst}">
+	  <option>${buf.name}</option>  
+</c:forEach>
 </select></p>
   <p><b>ФИО:</b><br>
    <input type="text" size="40" name="fio">

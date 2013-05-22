@@ -23,4 +23,10 @@ public class ForNewUser {
 	public void setPol(String pol) {
 		this.pol = pol;
 	}
+	
+	public boolean isReferee(){
+		return this.role.contains("Судья");
+	}
+	
+	
 }

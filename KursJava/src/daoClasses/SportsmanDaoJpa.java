@@ -20,8 +20,8 @@ public class SportsmanDaoJpa extends GenericDaoJpa<Sportsman> implements IDaoSpo
 
 	@Override
 	public Sportsman findByName(String name) throws PersistenceException {
-		String query = "Select x From sportsman x where x.fio="+name+";";
-		return executeQuery(query, false, true, null);
+		String query = "Select x From Sportsman x where x.fio like ?1";
+		return executeQuery(query, false, true, name);
 	}
 
 	@Override

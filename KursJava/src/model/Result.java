@@ -19,7 +19,7 @@ public class Result extends SystemEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	private Integer id;
-
+	@Temporal(TemporalType.TIME)
 	private Time alltime;
 
 	private Integer newpoints;
@@ -27,7 +27,7 @@ public class Result extends SystemEntity implements Serializable {
 	private Integer place;
 
 	private Integer shfalt;
-
+	@Temporal(TemporalType.TIME)
 	private Time timewoshotting;
 
 	//bi-directional many-to-one association to Race

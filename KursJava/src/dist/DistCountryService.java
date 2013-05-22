@@ -17,7 +17,7 @@ protected IDaoCountry countryDao;
 	@Override
 	public Country findByName(String name) throws ServiceException {
 		try{
-			return countryDao.findByName(name);
+			return DaoFactory.OPENJPA.getCountryDao().findByName(name);
 		}catch(PersistenceException e){
 			throw new ServiceException("Failed to get Country by name",e);
 		}

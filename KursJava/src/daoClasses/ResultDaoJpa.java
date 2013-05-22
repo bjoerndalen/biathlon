@@ -32,8 +32,8 @@ public class ResultDaoJpa extends GenericDaoJpa<Result> implements IDaoResult {
 	@Override
 	public Collection<Result> getAllResultsByRace(Race race)
 			throws PersistenceException {
-		String query = "Select x From result x where x.idrace="+race.getId()+";";
-		return executeQuery(query,false,false,null);
+		String query = "Select x From Result x where x.race.id=?1";
+		return executeQuery(query,false,false,race.getId());
 	}
 
 }

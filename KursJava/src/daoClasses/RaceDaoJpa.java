@@ -38,8 +38,8 @@ public class RaceDaoJpa extends GenericDaoJpa<Race> implements IDaoRace {
 
 	@Override
 	public Collection<Race> getRacesByCup(Cup cup) throws PersistenceException {
-		String query = "Select x From race x where x.idcup="+cup.getId()+";";
-		return executeQuery(query,false,false,null);
+		String query = "Select x From Race x where x.cup.id=?1";
+		return executeQuery(query,false,false,cup.getId());
 	}
 
 }

@@ -1,6 +1,8 @@
+<%@page import="service.ServiceFactory"%>
 <%@page import="model.Referee"%>
 <%@page import="DBAdmin.DBAdminWorking"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="model.Sportsman"%>
 <%@page import="model.Country"%>
 <%@page import="java.util.*"%>
@@ -19,33 +21,28 @@
 
 <body>
 
-<jsp:useBean id="newSp" scope="page" class="model.Sportsman"></jsp:useBean>
-<jsp:setProperty property="*" name="newSp"/>
+<%-- <jsp:useBean id="newSp" scope="page" class="model.Sportsman"></jsp:useBean>
+<jsp:setProperty property="fio" name="newSp" param="fio"/>
+<jsp:setProperty property="password" name="newSp" param="password"/>
 <jsp:useBean id="fnsp" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
-<jsp:setProperty property="*" name="fnsp"/>
-<%
-
-if(StringUtils.isNotEmpty(newSp.getFio())){
-	System.out.println(fnsp.getRole());
-	Country cntr = DBAdminWorking.getInstance().getCountrybyName(fnsp.getCntr());
-	if(fnsp.getRole().length()==5){
-		DBAdminWorking.getInstance().addReferee(newSp.getFio(), newSp.getPassword(), fnsp.getCntr());
-	}else{
-	if(fnsp.getPol()=="Male"){
-		DBAdminWorking.getInstance().addSportsman(newSp.getFio(), cntr, newSp.getPassword(), true);
-		
-	}else{
-		DBAdminWorking.getInstance().addSportsman(newSp.getFio(), cntr, newSp.getPassword(), false);	
-	}
-	}
-	
-	
-	
-}
-
-%>
+<jsp:setProperty property="*" name="fnsp"/> --%>
+<jsp:useBean id="del_sp" scope="page" class="model.Sportsman"></jsp:useBean>
+<jsp:setProperty property="id" name="del_sp" param="id_sp_del"/>
+<jsp:useBean id="del_ref" scope="page" class="model.Referee"></jsp:useBean>
+<jsp:setProperty property="id" name="del_ref" param="del_id_ref"/>
 
 
+<c:if test="${not empty del_sp.id}">
+	<%
+		ServiceFactory.DEFAULT.getSportsmanService().delEntity(del_sp.getId());
+	%>
+</c:if>
+
+<c:if test="${not empty del_ref.id}">
+	<%
+		ServiceFactory.DEFAULT.getRefereeService().delEntity(del_ref.getId());
+	%>
+</c:if>
 <div class="container">
   <header>
   	<a href="index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
@@ -90,7 +87,6 @@ if(StringUtils.isNotEmpty(newSp.getFio())){
   	<p style="font-size:18px;"><center>Удаление пользователя в систему</center></p>
   	      
   	      <div class="table">
-  	      <form action="index.jsp" method="get" id="1" enctype="multipart/form-data">
 		<table width="100%">
 			<tr>
 				<th width="30%">ФИО</th>
@@ -100,37 +96,42 @@ if(StringUtils.isNotEmpty(newSp.getFio())){
 			</tr>
 			<tr><td colspan="4">Sportsmans</td></tr>
 		<%
-		Collection<Sportsman> lst = DBAdminWorking.getInstance().getSportsman();
-		for(Sportsman sp: lst){
+		Collection<Sportsman> lst = ServiceFactory.DEFAULT.getSportsmanService().getAllEntites();
+		pageContext.setAttribute("lst", lst);
 		%>
-		
+		<c:forEach var="buf" items="${lst}">
 			<tr>
-				<td><%=sp.getFio() %></td>
-				<td><%=sp.getId() %></td>
-				<td><%=sp.getCountry().getName() %></td>
+				<td>${buf.fio }</td>
+				<td>${buf.id }</td>
+				<td>${buf.country.name }</td>
 				<td>
-					<input type="submit" name="id" value="Delete user <%=sp.getFio() %>">
+					<form action="deleting.jsp" method="post">
+						<input type="hidden" value="${buf.id}" name="id_sp_del">
+						<input type="submit" name="id" value="Delete">
+					</form>
 				</td>
 			</tr>
-			<%} %>
+			</c:forEach>
 			<tr><td colspan="4">Referees</td></tr>
 			<%
-		Collection<Referee> ls = DBAdminWorking.getInstance().getReferee();
-		for(Referee sp: ls){
-		%>
-		
+				Collection<Referee> ls = ServiceFactory.DEFAULT.getRefereeService().getAllEntites();
+				pageContext.setAttribute("ls", ls);
+			%>
+			<c:forEach var="buf" items="${ls}">
 			<tr>
-				<td><%=sp.getFio() %></td>
-				<td><%=sp.getId() %></td>
-				<td><%=sp.getContry() %></td>
+				<td>${buf.fio }</td>
+				<td>${buf.id }</td>
+				<td>${buf.contry}</td>
 				<td>
-					<input type="submit" name="id" value="Delete user <%=sp.getFio() %>">
+					<form action="deleting.jsp" method="post">
+						<input type="hidden" value="${buf.id}" name="del_id_ref">
+						<input type="submit" value="Delete">
+					</form>
 				</td>
 			</tr>
-			<%} %>
+			</c:forEach>
 			
 		</table>
-		</form>
 		</div>
   </article>
   <div class="footer">

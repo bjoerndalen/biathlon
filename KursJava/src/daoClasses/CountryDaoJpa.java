@@ -16,8 +16,8 @@ public class CountryDaoJpa extends GenericDaoJpa<Country> implements IDaoCountry
 	}
 	@Override
 	public Country findByName(String name) throws PersistenceException {
-		String query = "Select x From country x where x.name="+name+";";
-		return executeQuery(query, false, true, null);
+		String query = "Select x From Country x where x.name like ?1";
+		return executeQuery(query, false, true,name);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class CountryDaoJpa extends GenericDaoJpa<Country> implements IDaoCountry
 	@Override
 	public Collection<Sportsman> getAllSportsman() throws PersistenceException {
 		String query = "Select x From country x, sportsman s where x.id=s.idcontry;";
-		return executeQuery(query,false,false,null);
+		return executeQuery(query,false,false);
 	}
 
 }

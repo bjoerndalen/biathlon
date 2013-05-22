@@ -17,15 +17,15 @@ public class CupDaoJpa extends GenericDaoJpa<Cup> implements IDaoCup {
 
 	@Override
 	public Cup getCupByName(String name) throws PersistenceException {
-		String query = "Select x From cup x where x.cupname="+name+";";
-		return executeQuery(query,false,true,null);
+		String query = "Select x From Cup x where x.cupname like ?1";
+		return executeQuery(query,false,true,name);
 	}
 
 	@Override
 	public Collection<Race> getRecesFromCup(Cup cup)
 			throws PersistenceException {
-		String query = "Select x From race x where x.idcup="+cup.getId()+";";
-		return executeQuery(query,false,false,null);
+		String query = "Select x From Race x where x.cup.id=?1";
+		return executeQuery(query,false,false,cup.getId());
 	}
 
 	@Override
