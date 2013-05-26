@@ -32,7 +32,7 @@
 		System.out.println("USER ENTER");
 		%>
 		<script language="JavaScript"> 
-		  window.location.href = "index.jsp"
+		  window.location.href = "../user/main_last_result.jsp"
 		</script>
 	<%}else if(r!=null){
 		session.setAttribute("referee", r);
@@ -42,11 +42,11 @@
 		  window.location.href = "../referee/updt_startlist.jsp"
 		</script>
 	<%}else if(s!=null){
-		session.setAttribute("sporsman",s);
+		session.setAttribute("sportsman",s);
 		System.out.println("SPORTSMAN ENTER");
 		%>
 		<script language="JavaScript"> 
-		  window.location.href = "index.jsp"
+		  window.location.href = "../sportsman/main_last_race.jsp"
 		</script>
 		<%
 	}else{
