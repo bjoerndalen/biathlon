@@ -87,4 +87,10 @@ protected IDaoReferee refereeDao;
 		
 	}
 
+	@Override
+	public Referee getRefByFIOPass(String fio, String pass)
+			throws ServiceException {
+		return DaoFactory.OPENJPA.getRefereeDao().findRefByLoginPass(fio, pass);
+	}
+
 }

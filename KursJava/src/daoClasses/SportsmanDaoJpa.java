@@ -49,4 +49,12 @@ public class SportsmanDaoJpa extends GenericDaoJpa<Sportsman> implements IDaoSpo
 		return executeQuery(query,false,false,null);
 	}
 
+	@Override
+	public Sportsman findSportsmanByLoginPass(String login, String pass)
+			throws PersistenceException {
+		String query = "SELECT x FROM Sportsman x WHERE (x.fio like ?1) and (x.password like ?2)";
+		
+		return executeQuery(query, false, true, login, pass);
+	}
+
 }

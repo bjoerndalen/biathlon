@@ -61,4 +61,10 @@ protected IDaoUser userDao;
 		
 	}
 
+	@Override
+	public User getUserByLoginPass(String login, String pass)
+			throws SecurityException {
+		return DaoFactory.OPENJPA.getUserDao().findUserByLoginPass(login, pass);
+	}
+
 }

@@ -125,6 +125,12 @@ protected IDaoSportsman sportsmanDao;
 		}
 	}
 
+	@Override
+	public Sportsman getStortsmanByFIOPass(String fio, String pass)
+			throws ServiceException {
+		return DaoFactory.OPENJPA.getSportsmanDao().findSportsmanByLoginPass(fio, pass);
+	}
+
 	
 
 }

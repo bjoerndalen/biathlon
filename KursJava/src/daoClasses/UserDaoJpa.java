@@ -24,4 +24,12 @@ public class UserDaoJpa extends GenericDaoJpa<User> implements IDaoUser {
 		return executeQuery(query,false,true,null);
 	}
 
+	@Override
+	public User findUserByLoginPass(String login, String pass)
+			throws PersistenceException {
+		String query ="SELECT x FROM User x WHERE(x.login like ?1)and(x.password like ?2)";
+		
+		return executeQuery(query, false, true, login,pass);
+	}
+
 }

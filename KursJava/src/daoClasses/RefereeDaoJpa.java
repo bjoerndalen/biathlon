@@ -35,4 +35,12 @@ public class RefereeDaoJpa extends GenericDaoJpa<Referee> implements IDaoReferee
 		return executeQuery(query,false,false,null);
 	}
 
+	@Override
+	public Referee findRefByLoginPass(String login, String pass)
+			throws PersistenceException {
+		String query ="SELECT x FROM Referee x WHERE (x.fio like ?1) and (x.password like ?2)";
+		
+		return executeQuery(query, false, true, login,pass);
+	}
+
 }

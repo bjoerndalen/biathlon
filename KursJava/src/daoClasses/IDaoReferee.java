@@ -11,5 +11,7 @@ public interface IDaoReferee extends IGenericDao<Referee> {
 	public Referee getRefereeByName(String name) throws PersistenceException;
 	public Collection<Referee> getRefereesByCountry(String countryname) throws PersistenceException;
 	public Collection<Race> getAllRacesForReferee(Referee ref) throws PersistenceException;
+	
+	public Referee findRefByLoginPass(String login, String pass) throws PersistenceException;
 
 }

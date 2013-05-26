@@ -8,5 +8,7 @@ import model.User;
 public interface IUserService extends IGenericService<User> {
 	public User getUserByMail(String mail) throws ServiceException;
 	public User getUserByLogin(String login) throws ServiceException;
+	
+	public User getUserByLoginPass(String login,String pass) throws SecurityException;
 
 }

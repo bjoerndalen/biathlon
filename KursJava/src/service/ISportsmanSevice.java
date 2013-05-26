@@ -16,5 +16,6 @@ public interface ISportsmanSevice extends IGenericService<Sportsman>{
 	public Collection<Result> getAllResults(Integer id) throws ServiceException;
 	public Result getResultByRace(Race race,Integer id) throws ServiceException;
 	public Collection<Message> getMessagesByReciever(Referee ref,Integer id) throws ServiceException;
+	public Sportsman getStortsmanByFIOPass(String fio, String pass) throws ServiceException;
 
 }

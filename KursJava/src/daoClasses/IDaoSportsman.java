@@ -16,4 +16,6 @@ public Collection<Message> getAllMessages(Integer id) throws PersistenceExceptio
 public Collection<Result> getAllResults(Integer id) throws PersistenceException;
 public Result getResultByRace(Race race,Integer id) throws PersistenceException;
 public Collection<Message> getMessagesByReciever(Referee ref,Integer id) throws PersistenceException;
+
+public Sportsman findSportsmanByLoginPass(String login, String pass) throws PersistenceException;
 }
