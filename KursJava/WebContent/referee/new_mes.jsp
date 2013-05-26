@@ -1,45 +1,52 @@
+<%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
+<%@page import="DBReferee.DBRefereeWorking"%>
+<%@page import="java.util.Collection"%>
+<%@page import="model.*"%>
+<%@page import="java.sql.Time"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="YURII" content="18.02.2013">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<
+<fmt:requestEncoding value="utf-8" />
 <title>Ukrainian Biathlon</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<jsp:useBean id="newuser" scope="page" class="model.User"></jsp:useBean>
-<jsp:setProperty property="*" name="newuser" />
-<!-- Регистация -->
-<c:if test="${not empty newuser.login}">
-	<%
-		ServiceFactory.DEFAULT.getUserService().addEntity(newuser);
-	%>
-<script language="JavaScript"> 
-  window.location.href = "index.jsp"
-</script>
-</c:if>
-
-
 
 <div class="container">
   <header>
-  	<a href="index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
+  	<a href="../main&registration&authorization/index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
   </header>
     
   <aside>
    	<div class="box">
       	<div class="box_head">
-        		<p>Навигация</p>
+        		<p>Статистика</p>
     		</div>
             	<nav>
             	<ul class="nav">
-                	<li><a href="auth.jsp" title="Вход/ Авторизация" target="_self">Вход/ Авторизация</a></li>
-                    <li><a href="reg.jsp" title="Регистрация" target="_self">Регистрация</a></li>
+					<li><a href="shooting_statistics.jsp" title="Статистика - стрельба" target="_self">Статистика - стрельба</a></li>
+                	<li><a href="updt_startlist.jsp" title="Редактирование результатов" target="_self">Редактирование результатов</a></li>
+                    </ul>
+                </nav>
+			</div>
+	<div class="box">
+      	<div class="box_head">
+        		<p>Сообщения</p>
+    	</div>
+            	<nav>
+            	<ul class="nav">
+                	<li><a href="new_mes.jsp" title="Новое сообщение" target="_self">Новое сообщение</a></li>
+                    <li><a href="incoming.jsp" title="Входящие" target="_self">Входящие</a></li>
+					<li><a href="outcoming.jsp" title="Исходящие" target="_self">Исходящие</a></li>
                     </ul>
                 </nav>
 			</div>
@@ -66,19 +73,17 @@
     	</div>
   </aside>
   <article>
-  <form action="reg.jsp" method="post">
-  	<p style="font-size:18px;"><center>Регистрация</center></p>
-      <p><b>Ваш логин:</b><br>
-   <input type="text" size="40"  name="login" maxlength="30">
-  </p>
-   <p><b>Ваш e-mail:</b><br>
-   <input type="text" size="40" name="e_mail" maxlength="20">
-  </p>
-  <p><b>Ваш пароль</b><br>
-   <input type="password" size="40" name="password" maxlength="50">
-  </p> 
-  <p><input type="submit" value="Зарегестрироваться"></p>
-  </form>
+  
+  <p style="font-size:18px;"><center>Новое сообщение</center></p>
+  
+  <p><b>Кому:</b><br>
+		<input type="text" size="152"></input>
+		
+	<p><b>Сообщение:</b><br>
+		<textarea cols="115" rows="10"></textarea>
+	<button>Отправить</button>
+	<button>Очистиить</button>
+     
   </article>
   <div class="footer">
   <footer>

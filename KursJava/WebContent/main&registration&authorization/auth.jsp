@@ -11,6 +11,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="YURII" content="18.02.2013">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+    <<fmt:requestEncoding value="utf-8"/>
 <title>Ukrainian Biathlon</title>
 <link href="style.css" rel="stylesheet" type="text/css">
 </head>
@@ -27,15 +30,28 @@
 	if(u!=null){
 		session.setAttribute("use", u);
 		System.out.println("USER ENTER");
-	}else if(r!=null){
+		%>
+		<script language="JavaScript"> 
+		  window.location.href = "index.jsp"
+		</script>
+	<%}else if(r!=null){
 		session.setAttribute("referee", r);
 		System.out.println("REFEREE ENTER");
-	}else if(s!=null){
+		%>
+		<script language="JavaScript"> 
+		  window.location.href = "../referee/updt_startlist.jsp"
+		</script>
+	<%}else if(s!=null){
 		session.setAttribute("sporsman",s);
 		System.out.println("SPORTSMAN ENTER");
+		%>
+		<script language="JavaScript"> 
+		  window.location.href = "index.jsp"
+		</script>
+		<%
 	}else{
 		System.out.println("NOBYDY ENTER");
-		
+		System.out.println(newuser.getLogin() +"  "+ newuser.getPassword());
 	}
 %>
 

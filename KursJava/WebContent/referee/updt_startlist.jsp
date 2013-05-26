@@ -81,7 +81,7 @@
 
 	<div class="container">
 		<header>
-			<a href="../main&registration&authorization/main.html"
+			<a href="../main&registration&authorization/index.jsp"
 				title="ИКС БИАТЛОН"><p>Биатлон</p></a>
 		</header>
 
@@ -92,17 +92,12 @@
 				</div>
 				<nav>
 					<ul class="nav">
-						<li><a href="speed_statistics.html"
-							title="Статистика - скорость" target="_self">Статистика -
-								скорость</a></li>
-						<li><a href="shooting_statistics.html"
+						<li><a href="shooting_statistics.jsp"
 							title="Статистика - стрельба" target="_self">Статистика -
 								стрельба</a></li>
-						<li><a href="new_results.html" title="Добавление результатов"
-							target="_self">Добавление результатов</a></li>
 						<li><a href="updt_startlist.html"
-							title="Редактирование списка стартующих" target="_self">Редактирование
-								списка стартующих</a></li>
+							title="Редактирование результатов" target="_self">Редактирование
+								результатов</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -112,10 +107,10 @@
 				</div>
 				<nav>
 					<ul class="nav">
-						<li><a href="new_mes.html" title="Новое сообщение"
+						<li><a href="new_mes.jsp" title="Новое сообщение"
 							target="_self">Новое сообщение</a></li>
-						<li><a href="incoming.html" title="Входящие" target="_self">Входящие</a></li>
-						<li><a href="outcoming.html" title="Исходящие" target="_self">Исходящие</a></li>
+						<li><a href="incoming.jsp" title="Входящие" target="_self">Входящие</a></li>
+						<li><a href="outcoming.jsp" title="Исходящие" target="_self">Исходящие</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -153,7 +148,7 @@
 		</aside>
 		<article>
 			<p style="font-size: 18px;">
-			<center>Редктирование списка стартующих</center>
+			<center>Редктирование результатов</center>
 			</p>
 			<form action="updt_startlist.jsp" method="get">
 				<p>
@@ -171,7 +166,9 @@
 									pageContext.setAttribute("rc_lst", lst_race);
 							%>
 							<c:forEach var="race" items="${rc_lst}">
+							<c:if test="${race.referee.id==referee.id}">
 								<option>${cup.cupname}-${race.racename}</option>
+								</c:if>
 							</c:forEach>
 						</c:forEach>
 					</select> <input type="submit" value="Показaть">
