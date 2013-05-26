@@ -73,36 +73,27 @@
     	</div>
   </aside>
   <article>
-  
+  <%
+  Referee ref = (Referee)session.getAttribute("referee");
+  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getMessageByReferee(ref);
+  pageContext.setAttribute("lst_msg", lst_msg);
+  %>
         <div class="table">
 		<table width="100%">
 			<tr>
 				<th width="30%">От кого</th>
-				<th width="10%">Ранг</th>
-				<th width="20%">Время</th>
-				<th width="10%">Тема</th>
-				<th width="30%">Управление</th>
+				<th width="10%">Кому</th>
+				<th width="60%">Текст сообщения</th>
 			</tr>
+			<c:forEach var="buf" items="${lst_msg}">
+			<c:if test="${buf.whomname==referee.fio}">
 			<tr>
-				<td>Bjoerndalen</td>
-				<td>Спортсмен</td>
-				<td>01.01.2012</td>
-				<td>Гонка</td>
-				<td>
-					<button>Открыть</button>
-					<button>Удалить</button>
-				</td>
+				<td>${buf.whoname}</td>
+				<td>${buf.whomname}</td>
+				<td>${buf.textmsg}</td>
 			</tr>
-			<tr>
-				<td>Berger</td>
-				<td>Спортсмен</td>
-				<td>01.01.2012</td>
-				<td>Гонка</td>
-				<td>
-					<button>Открыть</button>
-					<button>Удалить</button>
-				</td>
-			</tr>
+			</c:if>
+			</c:forEach>
 		</table>
 		</div>
 		

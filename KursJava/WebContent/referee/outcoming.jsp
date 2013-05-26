@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
 <%@page import="DBReferee.DBRefereeWorking"%>
@@ -20,7 +21,31 @@
 </head>
 
 <body>
-
+<jsp:useBean id="msg" scope="page" class="model.Message"></jsp:useBean>
+	<jsp:setProperty property="*" name="msg" />
+	<c:if test="${not empty msg.whomname }">
+	<%
+	Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService().findByName(msg.getWhomname());
+	
+	
+	System.out.println(sp.getFio());
+	System.out.println(((Referee)session.getAttribute("referee")).getFio());
+	System.out.println(msg.getTextmsg());
+	Referee ref1 = ServiceFactory.DEFAULT.getRefereeService().getEntityById(((Referee)session.getAttribute("referee")).getId());
+	
+	/*if(ref1.getMessages()==null){
+		ref1.setMessages(new ArrayList<Message>());
+	}
+	if(sp.getMessages()==null){
+		sp.setMessages(new ArrayList<Message>());
+	}
+	//ref1.getMessages().add(msg);*/
+	//sp.getMessages().add(msg);
+	msg.setSportsman(sp);
+	msg.setReferee(ref1);
+	ServiceFactory.DEFAULT.getMessageService().addEntity(msg);
+	%>
+	</c:if>
 <div class="container">
   <header>
   	<a href="../main&registration&authorization/index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
@@ -76,33 +101,27 @@
   
         <div class="table">
 		<table width="100%">
+			<%
+  Referee ref = (Referee)session.getAttribute("referee");
+  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getMessageByReferee(ref);
+  pageContext.setAttribute("lst_msg", lst_msg);
+  %>
+        <div class="table">
+		<table width="100%">
 			<tr>
 				<th width="30%">Кому</th>
-				<th width="10%">Ранг</th>
-				<th width="20%">Время</th>
-				<th width="10%">Тема</th>
-				<th width="30%">Управление</th>
+				<th width="10%">От кого</th>
+				<th width="60%">Текст сообщения</th>
 			</tr>
+			<c:forEach var="buf" items="${lst_msg}">
+			<c:if test="${buf.whoname==referee.fio}">
 			<tr>
-				<td>Bjoerndalen</td>
-				<td>Спортсмен</td>
-				<td>02.01.2012</td>
-				<td>Гонка</td>
-				<td>
-					<button>Открыть</button>
-					<button>Удалить</button>
-				</td>
+				<td>${buf.whomname}</td>
+				<td>${buf.whoname}</td>
+				<td>${buf.textmsg}</td>
 			</tr>
-			<tr>
-				<td>Berger</td>
-				<td>Спортсмен</td>
-				<td>02.01.2012</td>
-				<td>Гонка</td>
-				<td>
-					<button>Открыть</button>
-					<button>Удалить</button>
-				</td>
-			</tr>
+			</c:if>
+			</c:forEach>
 		</table>
 		</div>
 		

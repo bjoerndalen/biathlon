@@ -19,15 +19,15 @@ public class MessageDaoJpa extends GenericDaoJpa<Message> implements IDaoMessage
 	@Override
 	public Collection<Message> getMessageBySportsman(Sportsman sportsman)
 			throws PersistenceException {
-		String query = "Select x From message x where x.idsportsman="+sportsman.getId()+";";
-		return executeQuery(query,false,false,null);
+		String query = "Select x From Message x where x.sportsman.id=?1";
+		return executeQuery(query,false,false,sportsman.getId());
 	}
 
 	@Override
 	public Collection<Message> getMessageByReferee(Referee ref)
 			throws PersistenceException {
-		String query = "Select x From message x where x.idreferee="+ref.getId()+";";
-		return executeQuery(query,false,false,null);
+		String query = "Select x From Message x where x.referee.id=?1";
+		return executeQuery(query,false,false,ref.getId());
 	}
 
 }

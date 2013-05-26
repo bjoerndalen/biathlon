@@ -75,15 +75,22 @@
   <article>
   
   <p style="font-size:18px;"><center>Новое сообщение</center></p>
-  
+  <form action = "outcoming.jsp" method="post">
+  <%
+  Collection<Sportsman> sp_list = ServiceFactory.DEFAULT.getSportsmanService().getAllEntites();
+  pageContext.setAttribute("sp_list", sp_list);
+  %>
   <p><b>Кому:</b><br>
-		<input type="text" size="152"></input>
+		<select name="whomname">
+		<c:forEach var="buf" items="${sp_list}">
+		<option>${buf.fio}</option>
+		</c:forEach>
+		</select>
 		
 	<p><b>Сообщение:</b><br>
-		<textarea cols="115" rows="10"></textarea>
-	<button>Отправить</button>
-	<button>Очистиить</button>
-     
+		<textarea cols="115" rows="10" name="textmsg"></textarea>
+	<input type="submit" value = "Отправить">
+     </form>
   </article>
   <div class="footer">
   <footer>

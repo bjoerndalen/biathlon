@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
 <%@page import="DBReferee.DBRefereeWorking"%>
@@ -63,6 +64,9 @@
 				Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService()
 						.findByName(sp_name.getId());
 				rslt.setSportsman(sp);
+				if(sp.getResults()==null){
+					sp.setResults(new ArrayList<Result>());
+				}
 				sp.getResults().add(rslt);
 				((Race) session.getAttribute("race")).getResults().add(rslt);
 				System.out.println(sp.getFio());
@@ -75,7 +79,7 @@
 				rslt.setNewpoints(1000);
 				System.out.println(((Race) session.getAttribute("race"))
 						.getRacename());
-				ServiceFactory.DEFAULT.getSportsmanService().updateEntity(sp.getId(), sp);
+				ServiceFactory.DEFAULT.getResultService().addEntity(rslt);
 		%>
 	</c:if>
 
