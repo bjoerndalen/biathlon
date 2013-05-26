@@ -19,12 +19,20 @@
 </head>
 
 <body>
-
+<jsp:useBean id="sp_name" scope="page" class="model.Sportsman"></jsp:useBean>
+	<jsp:setProperty property="*" name="sp_name" />
 <div class="container">
   <header>
   	<a href="../main&registration&authorization/index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
   </header>
-    
+    <c:if test="${not empty sp_name.password}">
+    <%
+    Sportsman upd_sp = (Sportsman)session.getAttribute("sp");
+    session.removeAttribute("sp");
+    upd_sp.setShooting(sp_name.getShooting());
+    ServiceFactory.DEFAULT.getSportsmanService().updateEntity(upd_sp.getId(), upd_sp);
+    %>
+    </c:if>
   <aside>
    	<div class="box">
       	<div class="box_head">
@@ -73,24 +81,43 @@
   </aside>
   <article>
 		<p style="font-size:18px;"><center>Статистика по стрельбе</center></p>
+  <%
+  Collection <Sportsman> sp_list = ServiceFactory.DEFAULT.getSportsmanService().getAllEntites();
+  pageContext.setAttribute("sp_list", sp_list);
+  %>
+  <p>Выберете спортсмена для обновления статистики стрельбы</p>
+  <form action="shooting_statistics.jsp" method="post">
+  <select name = "fio">
+  <c:forEach var="buf" items="${sp_list}">
+  <option>${buf.fio}</option>
+  </c:forEach>
+  </select>
+  <input type="submit" value="Выбрать">
+  </form>
+  
   
         <div class="table">
 		<table>
 			<tr>
 				<th width="30%">Спортсмен</th>
-				<th width="10%">Статистика по стрельбе</th>
-				<th width="100%">Примечания</th>
+				<th width="10%">Текущая статистика стрельбы</th>
+				<th width="100%">Обновленное значение</th>
 			</tr>
+			<c:if test="${not empty sp_name.fio }">
+  			<%
+  			Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService().findByName(sp_name.getFio());
+  			session.setAttribute("sp", sp);
+  			%>
+  			</c:if>
+			<form action="shooting_statistics.jsp" method="post">
 			<tr>
-				<td>Bjoerndalen</td>
-				<td>100%</td>
-				<td></td>
+				<td name="fio">${sp.fio}</td>
+				<td name="shooting">${sp.shooting}</td>
+				<td><input type="text" name="shooting">
+				<input type="submit" value="Обновить"></td>
 			</tr>
-			<tr>
-				<td>Kryachka Berger</td>
-				<td>98%</td>
-				<td></td>
-			</tr>
+			<input type="hidden" value="qwerty" name="password">
+			</form>
 		</table>
 		</div>
 		

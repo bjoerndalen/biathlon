@@ -42,6 +42,7 @@
 	//ref1.getMessages().add(msg);*/
 	//sp.getMessages().add(msg);
 	msg.setSportsman(sp);
+	msg.setWhoname(ref1.getFio());
 	msg.setReferee(ref1);
 	ServiceFactory.DEFAULT.getMessageService().addEntity(msg);
 	%>

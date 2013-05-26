@@ -64,11 +64,6 @@
 				Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService()
 						.findByName(sp_name.getId());
 				rslt.setSportsman(sp);
-				if(sp.getResults()==null){
-					sp.setResults(new ArrayList<Result>());
-				}
-				sp.getResults().add(rslt);
-				((Race) session.getAttribute("race")).getResults().add(rslt);
 				System.out.println(sp.getFio());
 				rslt.setRace(((Race) session.getAttribute("race")));
 				rslt.setShfalt(res.getShfalt());
@@ -76,9 +71,20 @@
 				rslt.setAlltime(Time.valueOf(for_time.getCntr()));
 				System.out.println(Time.valueOf(for_time.getCntr()));
 				rslt.setTimewoshotting(Time.valueOf(for_time.getRole()));
-				rslt.setNewpoints(1000);
+				rslt.setNewpoints(4);
 				System.out.println(((Race) session.getAttribute("race"))
 						.getRacename());
+						/*System.out.println(res.getShfalt());
+						System.out.println(res.getPlace());
+						System.out.println(for_time.getRole());
+						Result rs = new Result();
+						rs.setRace(((Race) session.getAttribute("race")));
+						rs.setSportsman(sp);
+						rs.setAlltime(Time.valueOf("00:12:22"));
+						rs.setNewpoints(10);
+						rs.setPlace(3);
+						rs.setShfalt(2);
+						rs.setTimewoshotting(Time.valueOf("00:11:10"));*/
 				ServiceFactory.DEFAULT.getResultService().addEntity(rslt);
 		%>
 	</c:if>
@@ -99,7 +105,7 @@
 						<li><a href="shooting_statistics.jsp"
 							title="Статистика - стрельба" target="_self">Статистика -
 								стрельба</a></li>
-						<li><a href="updt_startlist.html"
+						<li><a href="updt_startlist.jsp"
 							title="Редактирование результатов" target="_self">Редактирование
 								результатов</a></li>
 					</ul>
@@ -200,7 +206,7 @@
 					<form action="updt_startlist.jsp" method="post">
 						<tr>
 							<td><input type="text" name="fio" size="10"></td>
-							<td><input type="text" name="position" size="10"></td>
+							<td><input type="text" name="place" size="10"></td>
 							<td><input type="text" name="shfalt" size="10"></td>
 							<td><input type="text" name="timeall" size="10"></td>
 							<td><input type="text" name="onlytime" size="10"></td>
