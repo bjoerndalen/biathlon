@@ -61,6 +61,7 @@
 	<c:if test="${not empty sp_name.id}">
 		<%
 			Result rslt = new Result();
+		System.out.println(sp_name.getId());
 				Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService()
 						.findByName(sp_name.getId());
 				rslt.setSportsman(sp);
@@ -71,7 +72,7 @@
 				rslt.setAlltime(Time.valueOf(for_time.getCntr()));
 				System.out.println(Time.valueOf(for_time.getCntr()));
 				rslt.setTimewoshotting(Time.valueOf(for_time.getRole()));
-				rslt.setNewpoints(4);
+				rslt.setNewpoints(101-res.getPlace());
 				System.out.println(((Race) session.getAttribute("race"))
 						.getRacename());
 						/*System.out.println(res.getShfalt());

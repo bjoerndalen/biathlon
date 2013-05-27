@@ -13,6 +13,8 @@ import model.Sportsman;
 
 import org.apache.openjpa.persistence.PersistenceException;
 
+import DBAdmin.ForNewUser;
+
 import service.ISportsmanSevice;
 
 import daoClasses.DaoFactory;
@@ -129,6 +131,16 @@ protected IDaoSportsman sportsmanDao;
 	public Sportsman getStortsmanByFIOPass(String fio, String pass)
 			throws ServiceException {
 		return DaoFactory.OPENJPA.getSportsmanDao().findSportsmanByLoginPass(fio, pass);
+	}
+
+	@Override
+	public Collection<ForNewUser> getSportsmansBySex(Boolean sex)
+			throws ServiceException {
+		try{
+			return this.sportsmanDao.getSportsmansBySex(sex);
+		}catch(PersistenceException e){
+			throw new ServiceException("Fail while getting sportsmans by sex",e);
+		}
 	}
 
 	

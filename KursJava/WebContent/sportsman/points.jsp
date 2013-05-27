@@ -4,6 +4,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="model.*"%>
 <%@page import="java.sql.Time"%>
+<%@page import="DBAdmin.*"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -77,35 +78,51 @@
   </aside>
   <article>
   <p style="font-size:18px;"><center>Просмотр статистики по очкам</center></p>
-  
-		<p><b>Выберите кубок:</b><br>
-			<select>
-				<option>WC2012</option>
-				<option>WC2013</option>
-			</select>
-		
-		<p><b>Выберите гонку:</b><br>
-			<select>
-				<option>Poland</option>
-				<option>Finland</option>
-			</select>
+  <p style="font-size:18px;"><center>Статистика по собственным гонкам</center></p>
   
         <div class="table">
 		<table width="100%">
 			<tr>
-				<th width="30%">Очки</th>
-				<th width="10%">Позиция</th>
-				<th width="20%">Время</th>
-				<th width="10%">Стрельба</th>
-				<th width="30%">Примечания</th>
+				<th width="30%">Название кубка</th>
+				<th width="10%">Название гонки</th>
+				<th width="20%">Занятое место</th>
+				<th width="10%">Получено очков</th>
 			</tr>
+			<%
+			Sportsman sp = (Sportsman)session.getAttribute("sportsman");
+			Collection<Result> rslt_list = ServiceFactory.DEFAULT.getSportsmanService().getAllResults(sp.getId());
+			pageContext.setAttribute("rslt_list", rslt_list);
+			%>
+			<c:forEach var="buf" items="${rslt_list}">
 			<tr>
-				<td>10/10</td>
-				<td>3/3</td>
-				<td>3/3</td>
-				<td>4/4</td>
-				<td></td>
+				<td>${buf.race.cup.cupname}</td>
+				<td>${buf.race.racename}</td>
+				<td>${buf.place}</td>
+				<td>${buf.newpoints}</td>
 			</tr>
+			</c:forEach></td>
+			</tr>
+		</table>
+	  <p style="font-size:18px;"><center>Положение в общем зачете</center></p>	
+		
+		<div class="table">
+		<table width="100%">
+			<tr>
+				<th width="30%">Имя</th>
+				<th width="10%">Страна</th>
+				<th width="20%">Количество очков</th>
+			</tr>
+			<%
+			Collection<ForNewUser> point_list = ServiceFactory.DEFAULT.getSportsmanService().getSportsmansBySex(sp.getSex());
+			pageContext.setAttribute("point_list", point_list);
+			%>
+			<c:forEach var="spm" items="${point_list}">
+			<tr>
+				<td>${spm.cntr}</td>
+				<td>${spm.pol}</td>
+				<td>${spm.role}</td>
+			</tr>
+			</c:forEach>
 		</table>
 		</div>
 		

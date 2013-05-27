@@ -87,4 +87,14 @@ protected IDaoMessage messageDao;
 		}
 	}
 
+	@Override
+	public Collection<Message> getInputMessageBySportsman(Sportsman sp)
+			throws ServiceException {
+		try{
+			return messageDao.getInputMessageBySportsman(sp);
+		}catch(PersistenceException e){
+			throw new ServiceException("Failed to get message by sportsman",e);
+		}
+	}
+
 }

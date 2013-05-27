@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import org.apache.openjpa.persistence.PersistenceException;
 
+import DBAdmin.ForNewUser;
+
 import model.Message;
 import model.Race;
 import model.Referee;
@@ -16,6 +18,7 @@ public Collection<Message> getAllMessages(Integer id) throws PersistenceExceptio
 public Collection<Result> getAllResults(Integer id) throws PersistenceException;
 public Result getResultByRace(Race race,Integer id) throws PersistenceException;
 public Collection<Message> getMessagesByReciever(Referee ref,Integer id) throws PersistenceException;
+public Collection<ForNewUser> getSportsmansBySex(Boolean sex) throws PersistenceException;
 
 public Sportsman findSportsmanByLoginPass(String login, String pass) throws PersistenceException;
 }

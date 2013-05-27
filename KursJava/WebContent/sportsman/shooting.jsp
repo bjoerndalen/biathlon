@@ -81,20 +81,28 @@
         <div class="table">
 		<table width="100%">
 			<tr>
-				<th width="30%">Процент попаданий</th>
-				<th width="10%">К-во выстрелов</th>
-				<th width="20%">К-во попаданий</th>
-				<th width="30%">Примечания</th>
+				<th width="30%">Название кубка</th>
+				<th width="10%">Название гонки</th>
+				<th width="20%">Количество промахов</th>
+				<th width="30%">Время на гонку</th>
+				<th width="30%">Время без учета стрельбы</th>
 			</tr>
+			<%
+			Sportsman sp = (Sportsman)session.getAttribute("sportsman");
+			Collection<Result> rslt_list = ServiceFactory.DEFAULT.getSportsmanService().getAllResults(sp.getId());
+			pageContext.setAttribute("rslt_list", rslt_list);
+			%>
+			<c:forEach var="buf" items="${rslt_list}">
 			<tr>
-				<td>100%</td>
-				<td>100</td>
-				<td>100</td>
-				<td></td>
+				<td>${buf.race.cup.cupname}</td>
+				<td>${buf.race.racename}</td>
+				<td>${buf.shfalt}</td>
+				<td>${buf.alltime}</td>
+				<td>${buf.timewoshotting}</td>
 			</tr>
+			</c:forEach>
 		</table>
 		</div>
-		
   </article>
   <div class="footer">
   <footer>

@@ -79,34 +79,29 @@
   <article>
   <p style="font-size:18px;"><center>Просмотр статистики по скорости</center></p>
   
-		<p><b>Выберите кубок:</b><br>
-			<select>
-				<option>WC2012</option>
-				<option>WC2013</option>
-			</select>
 		
-		<p><b>Выберите гонку:</b><br>
-			<select>
-				<option>Poland</option>
-				<option>Finland</option>
-			</select>
   
         <div class="table">
 		<table width="100%">
 			<tr>
-				<th width="30%">Очки</th>
-				<th width="10%">Позиция на старте</th>
-				<th width="20%">Позиция на финише</th>
-				<th width="10%">Время</th>
-				<th width="30%">Примечания</th>
+				<th width="30%">Название кубка</th>
+				<th width="10%">Название гонки</th>
+				<th width="20%">Финишное время</th>
+				<th width="30%">Время без учета стрельбы</th>
 			</tr>
+			<%
+			Sportsman sp = (Sportsman)session.getAttribute("sportsman");
+			Collection<Result> rslt_list = ServiceFactory.DEFAULT.getSportsmanService().getAllResults(sp.getId());
+			pageContext.setAttribute("rslt_list", rslt_list);
+			%>
+			<c:forEach var="buf" items="${rslt_list}">
 			<tr>
-				<td>3/3</td>
-				<td>10/100</td>
-				<td>1/100</td>
-				<td>00:45:15.5</td>
-				<td></td>
+				<td>${buf.race.cup.cupname}</td>
+				<td>${buf.race.racename}</td>
+				<td>${buf.alltime}</td>
+				<td>${buf.timewoshotting}</td>
 			</tr>
+			</c:forEach>
 		</table>
 		</div>
 		

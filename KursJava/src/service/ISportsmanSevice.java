@@ -4,6 +4,10 @@ import java.util.Collection;
 
 import javax.xml.rpc.ServiceException;
 
+import org.apache.openjpa.persistence.PersistenceException;
+
+import DBAdmin.ForNewUser;
+
 import model.Message;
 import model.Race;
 import model.Referee;
@@ -17,5 +21,5 @@ public interface ISportsmanSevice extends IGenericService<Sportsman>{
 	public Result getResultByRace(Race race,Integer id) throws ServiceException;
 	public Collection<Message> getMessagesByReciever(Referee ref,Integer id) throws ServiceException;
 	public Sportsman getStortsmanByFIOPass(String fio, String pass) throws ServiceException;
-
+	public Collection<ForNewUser> getSportsmansBySex(Boolean sex) throws ServiceException;
 }

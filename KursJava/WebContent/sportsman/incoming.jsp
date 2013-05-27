@@ -78,7 +78,7 @@
   <article>
   <%
   Sportsman sp = (Sportsman)session.getAttribute("sportsman");
-  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getMessageBySportsman(sp);
+  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getInputMessageBySportsman(sp);
   pageContext.setAttribute("lst_msg", lst_msg);
   %>
         <div class="table">
