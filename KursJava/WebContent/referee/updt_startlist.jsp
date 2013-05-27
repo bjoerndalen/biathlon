@@ -203,9 +203,19 @@
 						</tr>
 						<form></form>
 					</c:forEach>
+					<%
+					Collection<Sportsman> sp_list = ServiceFactory.DEFAULT.getSportsmanService().getAllEntites();
+					pageContext.setAttribute("sp_list", sp_list);
+					%>
 					<form action="updt_startlist.jsp" method="post">
 						<tr>
-							<td><input type="text" name="fio" size="10"></td>
+							<td>
+							<select name="fio">
+							<c:forEach var="sp" items="${sp_list}">
+							<option>${sp.fio}</option>
+							</c:forEach>
+							</select>
+							</td>
 							<td><input type="text" name="place" size="10"></td>
 							<td><input type="text" name="shfalt" size="10"></td>
 							<td><input type="text" name="timeall" size="10"></td>

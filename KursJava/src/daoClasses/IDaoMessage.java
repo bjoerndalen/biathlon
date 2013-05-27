@@ -11,4 +11,5 @@ import model.Sportsman;
 public interface IDaoMessage extends IGenericDao<Message> {
 public Collection<Message> getMessageBySportsman(Sportsman sportsman) throws PersistenceException;
 public Collection<Message> getMessageByReferee(Referee ref) throws PersistenceException;
+public Collection<Message> getInputMessageByReferee(Referee ref) throws PersistenceException;
 }

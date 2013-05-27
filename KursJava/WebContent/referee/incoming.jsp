@@ -75,7 +75,7 @@
   <article>
   <%
   Referee ref = (Referee)session.getAttribute("referee");
-  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getMessageByReferee(ref);
+  Collection <Message> lst_msg = ServiceFactory.DEFAULT.getMessageService().getInputMessageByReferee(ref);
   pageContext.setAttribute("lst_msg", lst_msg);
   %>
         <div class="table">

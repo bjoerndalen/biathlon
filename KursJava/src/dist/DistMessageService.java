@@ -77,4 +77,14 @@ protected IDaoMessage messageDao;
 		
 	}
 
+	@Override
+	public Collection<Message> getInputMessageByReferee(Referee ref)
+			throws ServiceException {
+		try{
+			return messageDao.getInputMessageByReferee(ref);
+		}catch(PersistenceException e){
+			throw new ServiceException("Failed to get message by referee",e);
+		}
+	}
+
 }

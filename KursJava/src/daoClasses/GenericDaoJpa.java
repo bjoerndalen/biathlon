@@ -261,6 +261,18 @@ public abstract class GenericDaoJpa<T extends SystemEntity> {
 
 		return result;
 	}
+
+
+
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+
+
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}
 	
 	
 }

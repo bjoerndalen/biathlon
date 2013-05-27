@@ -12,5 +12,5 @@ import model.Sportsman;
 public interface IMessageService extends IGenericService<Message> {
 	public Collection<Message> getMessageBySportsman(Sportsman sportsman) throws ServiceException;
 	public Collection<Message> getMessageByReferee(Referee ref) throws ServiceException;
-
+	public Collection<Message> getInputMessageByReferee(Referee ref) throws ServiceException;
 }
