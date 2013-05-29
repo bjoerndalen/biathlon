@@ -20,7 +20,40 @@
 </head>
 
 <body>
+<jsp:useBean id="res" scope="page" class="model.Result"></jsp:useBean>
+	<jsp:setProperty property="*" name="res" />
+	<jsp:useBean id="for_time" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
+	<jsp:setProperty property="cntr" name="for_time" param="timeall" />
+	<jsp:setProperty property="role" name="for_time" param="onlytime" />
+	<jsp:useBean id="sp_name" scope="page" class="DBAdmin.ForDelSportsman"></jsp:useBean>
+	<jsp:setProperty property="id" name="sp_name" param="fio" />
+	<jsp:useBean id="fnsp" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
+	<jsp:setProperty property="pol" name="fnsp" param="cup_race" />
+<c:if test="${not empty fnsp.pol }">
+		<%
+			StringTokenizer stk = new StringTokenizer(fnsp.getPol(), "-");
+				String cupName = stk.nextToken();
+				String raceName = stk.nextToken();
+				System.out.println(cupName);
+				System.out.println(raceName);
+				Race needRace = null;
+				Cup cp = ServiceFactory.DEFAULT.getCupService().getCupByName(
+						cupName);
+				Collection<Race> lst_race = ServiceFactory.DEFAULT
+						.getRaceService().getRacesByCup(cp);
+				for (Race rc : lst_race) {
+					if (rc.getRacename().contains(raceName)) {
+						needRace = rc;
+						break;
+					}
 
+				}
+				Collection<Result> curResults = ServiceFactory.DEFAULT
+						.getResultService().getAllResultsByRace(needRace);
+				pageContext.setAttribute("cur_res", curResults);
+				session.setAttribute("race", needRace);
+		%>
+	</c:if>
 <div class="container">
   <header>
   	<a href="../main&registration&authorization/index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
@@ -77,38 +110,49 @@
   <article>
   <p style="font-size:18px;"><center>Просмотр результатов гонок</center></p>
   
-		<p><b>Выберите кубок:</b><br>
-			<select>
-				<option>WC2012</option>
-				<option>WC2013</option>
-			</select>
-  
+		<p><b>Выберите кубок и гонку:</b><br>
+		<form action="main_last_race.jsp" method="post">
+			<select name="cup_race">
+			<%
+			Collection<Cup> cuplist = ServiceFactory.DEFAULT.getCupService()
+									.getAllEntites();
+							pageContext.setAttribute("cuplist", cuplist);
+						%>
+				<c:forEach var="cup" items="${cuplist}">
+							<%
+								Cup cp = (Cup) pageContext.getAttribute("cup");
+									Collection<Race> lst_race = ServiceFactory.DEFAULT
+											.getCupService().getRecesFromCup(cp);
+									pageContext.setAttribute("rc_lst", lst_race);
+							%>
+							<c:forEach var="race" items="${rc_lst}">
+								<option>${cup.cupname}-${race.racename}</option>
+							</c:forEach>
+						</c:forEach>
+			</select><input type="submit" value="Показaть">
+  </form>
         <div class="table">
-		<table width="100%">
-			<tr>
-				<th width="30%">Гонка</th>
-				<th width="10%">Позиция</th>
-				<th width="20%">Время</th>
-				<th width="10%">Стрельба</th>
-				<th width="30%">Примечания</th>
-			</tr>
-			<tr>
-				<td>Poland</td>
-				<td>1</td>
-				<td>00:10:15.0</td>
-				<td>100%</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Finland</td>
-				<td>2</td>
-				<td>??</td>
-				<td>98%</td>
-				<td></td>
-			</tr>
+				<table width="100%">
+					<tr>
+						<th width="30%">Спортсмен</th>
+						<th width="10%">Позиция</th>
+						<th width="10%">Количество промахов</th>
+						<th width="30%">Общее время гонки</th>
+						<th width="30%">Время гонки на лыжне</th>
+
+					</tr>
+					<c:forEach var="crc" items="${cur_res}">
+						<tr>
+							<td>${crc.sportsman.fio}</td>
+							<td>${crc.place}</td>
+							<td>${crc.shfalt}</td>
+							<td>${crc.alltime}</td>
+							<td>${crc.timewoshotting}</td>
+						</tr>
+						<form></form>
+					</c:forEach>
 		</table>
-		</div>
-		
+			</div>
   </article>
   <div class="footer">
   <footer>
