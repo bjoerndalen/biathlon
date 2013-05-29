@@ -73,6 +73,7 @@
 				System.out.println(Time.valueOf(for_time.getCntr()));
 				rslt.setTimewoshotting(Time.valueOf(for_time.getRole()));
 				rslt.setNewpoints(101-res.getPlace());
+				sp.getCountry().setPoints(sp.getCountry().getPoints()+rslt.getNewpoints());
 				System.out.println(((Race) session.getAttribute("race"))
 						.getRacename());
 						/*System.out.println(res.getShfalt());

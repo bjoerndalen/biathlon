@@ -63,8 +63,7 @@
 					<li><a href="speed.jsp" title="Статистика - скорость" target="_self">Статистика - скорость</a></li>
                     <li><a href="shooting.jsp" title="Статистика - стрельба" target="_self">Статистика - стрельба</a></li>
 					<li><a href="points.jsp" title="Статистика - очки" target="_self">Статистика - очки</a></li>
-                	<li><a href="res_at_finish.jsp" title="Просомтр результатов на финише" target="_self">Просомтор результатов на финише</a></li>
-                    </ul>
+                	</ul>
                 </nav>
 			</div>
 	<div class="box">
