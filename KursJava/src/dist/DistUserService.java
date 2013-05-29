@@ -1,8 +1,13 @@
 package dist;
 
+import java.util.Collection;
+
 import javax.xml.rpc.ServiceException;
 
 import org.apache.openjpa.persistence.PersistenceException;
+
+import DBAdmin.ForLastRace;
+import DBAdmin.ForNewUser;
 
 import daoClasses.DaoFactory;
 import daoClasses.IDaoUser;
@@ -65,6 +70,27 @@ protected IDaoUser userDao;
 	public User getUserByLoginPass(String login, String pass)
 			throws SecurityException {
 		return DaoFactory.OPENJPA.getUserDao().findUserByLoginPass(login, pass);
+	}
+
+	@Override
+	public Collection<ForNewUser> getCountryRating() throws ServiceException {
+		return DaoFactory.OPENJPA.getUserDao().getCountryRating();
+	}
+
+	@Override
+	public Collection<ForLastRace> getLastRaceResults() throws ServiceException {
+		return DaoFactory.OPENJPA.getUserDao().getLastRaceResults();
+	}
+
+	@Override
+	public Collection<ForLastRace> getPointsRatingMen() throws ServiceException {
+		return DaoFactory.OPENJPA.getUserDao().getPointsRatingMen();
+	}
+
+	@Override
+	public Collection<ForLastRace> getPointsRatingWomen()
+			throws ServiceException {
+		return DaoFactory.OPENJPA.getUserDao().getPointsRatingWomen();
 	}
 
 }

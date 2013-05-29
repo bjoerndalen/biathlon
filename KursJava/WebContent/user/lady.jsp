@@ -1,3 +1,4 @@
+<%@page import="DBAdmin.ForLastRace"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
@@ -34,6 +35,7 @@
     		</div>
             	<nav>
             	<ul class="nav">
+            	<li><a href="main_last_result.jsp" title="Главная" target="_self">Главная</a></li>
                 	<li><a href="countries.jsp" title="Зачет стран" target="_self">Зачет стран</a></li>
                     <li><a href="man.jsp" title="Зачеты кубков среди мужчин" target="_self">Зачеты кубков среди мужчин</a></li>
                     <li><a href="lady.jsp" title="Зачеты кубков среди женщин" target="_self">Зачеты кубков среди женщин</a></li>
@@ -66,13 +68,6 @@
   </aside>
   <article>
   	<center><p style="font-size:18px;">Просмотр зачета кубков среди женщин</p></center>
-	<p style="font-size: 14px;">Для просмотра зачета необходимого кубка пожалуйста выберете кубок.</p>
-	<p><select>
-  <option>Кубок мира</option>
-  <option>Кубок IBU</option>
-  <option>Кубок Европы</option>
-  <option>Кубок Северной Америки</option></p>
-</select>
 <div class="table">
   	      <table width="80%" border="1" cellspacing="0" cellpadding="4" align="center">
 		  <tr>
@@ -81,37 +76,18 @@
 		  <th>Страна</th>
 		  <th>Количество очков</th>
 		  </tr>
-		  
-		  
+		  <%
+		  Collection<ForLastRace> rt_list = ServiceFactory.DEFAULT.getUserService().getPointsRatingWomen();
+		  pageContext.setAttribute("rt_list", rt_list);
+		  %>
+		  <c:forEach var="buf" items="${rt_list}">
 		  <tr>
-		  <td>1</td>
-		  <td>Иванова</td>
-		  <td>Украина</td>
-		  <td>100</td>
+		  <td>${buf.position}</td>
+		  <td>${buf.name}</td>
+		  <td>${buf.cntr}</td>
+		  <td>${buf.alltime}</td>
 		  </tr>
-		  
-		  
-		  <tr>
-		  <td>2</td>
-		  <td>Петрова</td>
-		  <td>Россия</td>
-		  <td>93</td>
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>3</td>
-		  <td>Сидорова</td>
-		  <td>Конго</td>
-		  <td>84</td>
-		  </tr>
-		  
-		  <tr>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  </tr>
+		  </c:forEach>
 		  </table>
 		  </div>
   </article>

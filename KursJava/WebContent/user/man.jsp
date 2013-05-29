@@ -5,6 +5,7 @@
 <%@page import="java.util.Collection"%>
 <%@page import="model.*"%>
 <%@page import="java.sql.Time"%>
+<%@page import="DBAdmin.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -34,6 +35,7 @@
     		</div>
             	<nav>
             	<ul class="nav">
+            	<li><a href="main_last_result.jsp" title="Главная" target="_self">Главная</a></li>
                 	<li><a href="countries.jsp" title="Зачет стран" target="_self">Зачет стран</a></li>
                     <li><a href="man.jsp" title="Зачеты кубков среди мужчин" target="_self">Зачеты кубков среди мужчин</a></li>
                     <li><a href="lady.jsp" title="Зачеты кубков среди женщин" target="_self">Зачеты кубков среди женщин</a></li>
@@ -67,13 +69,6 @@
   <article>
   
   	<center><p style="font-size:18px;">Просмотр зачета кубков среди мужчин</p></center>
-	<p style="font-size: 14px;">Для просмотра зачета необходимого кубка пожалуйста выберете кубок.</p>
-	<p><select>
-  <option>Кубок мира</option>
-  <option>Кубок IBU</option>
-  <option>Кубок Европы</option>
-  <option>Кубок Северной Америки</option></p>
-</select>
 <div class="table">
   	      <table width="80%" border="1" cellspacing="0" cellpadding="4" align="center">
 		  <tr>
@@ -84,35 +79,18 @@
 		  </tr>
 		  
 		  
+		  <%
+		  Collection<ForLastRace> rt_list = ServiceFactory.DEFAULT.getUserService().getPointsRatingMen();
+		  pageContext.setAttribute("rt_list", rt_list);
+		  %>
+		  <c:forEach var="buf" items="${rt_list}">
 		  <tr>
-		  <td>1</td>
-		  <td>Иванов</td>
-		  <td>Украина</td>
-		  <td>100</td>
+		  <td>${buf.position}</td>
+		  <td>${buf.name}</td>
+		  <td>${buf.cntr}</td>
+		  <td>${buf.alltime}</td>
 		  </tr>
-		  
-		  
-		  <tr>
-		  <td>2</td>
-		  <td>Петров</td>
-		  <td>Россия</td>
-		  <td>93</td>
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>3</td>
-		  <td>Сидоров</td>
-		  <td>Конго</td>
-		  <td>84</td>
-		  </tr>
-		  
-		  <tr>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  </tr>
+		  </c:forEach>
 		  </table>
 		  </div>
   </article>

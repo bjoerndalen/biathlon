@@ -21,7 +21,40 @@
 </head>
 
 <body>
+<jsp:useBean id="res" scope="page" class="model.Result"></jsp:useBean>
+	<jsp:setProperty property="*" name="res" />
+	<jsp:useBean id="for_time" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
+	<jsp:setProperty property="cntr" name="for_time" param="timeall" />
+	<jsp:setProperty property="role" name="for_time" param="onlytime" />
+	<jsp:useBean id="sp_name" scope="page" class="DBAdmin.ForDelSportsman"></jsp:useBean>
+	<jsp:setProperty property="id" name="sp_name" param="fio" />
+	<jsp:useBean id="fnsp" scope="page" class="DBAdmin.ForNewUser"></jsp:useBean>
+	<jsp:setProperty property="pol" name="fnsp" param="cup_race" />
+<c:if test="${not empty fnsp.pol }">
+		<%
+			StringTokenizer stk = new StringTokenizer(fnsp.getPol(), "-");
+				String cupName = stk.nextToken();
+				String raceName = stk.nextToken();
+				System.out.println(cupName);
+				System.out.println(raceName);
+				Race needRace = null;
+				Cup cp = ServiceFactory.DEFAULT.getCupService().getCupByName(
+						cupName);
+				Collection<Race> lst_race = ServiceFactory.DEFAULT
+						.getRaceService().getRacesByCup(cp);
+				for (Race rc : lst_race) {
+					if (rc.getRacename().contains(raceName)) {
+						needRace = rc;
+						break;
+					}
 
+				}
+				Collection<Result> curResults = ServiceFactory.DEFAULT
+						.getResultService().getAllResultsByRace(needRace);
+				pageContext.setAttribute("cur_res", curResults);
+				session.setAttribute("race", needRace);
+		%>
+	</c:if>
 <div class="container">
   <header>
   	<a href="../main&registration&authorization/index.jsp" title="ИКС БИАТЛОН"><p>Биатлон</p></a>
@@ -34,6 +67,7 @@
     		</div>
             	<nav>
             	<ul class="nav">
+            	<li><a href="main_last_result.jsp" title="Главная" target="_self">Главная</a></li>
                 	<li><a href="countries.jsp" title="Зачет стран" target="_self">Зачет стран</a></li>
                     <li><a href="man.jsp" title="Зачеты кубков среди мужчин" target="_self">Зачеты кубков среди мужчин</a></li>
                     <li><a href="lady.jsp" title="Зачеты кубков среди женщин" target="_self">Зачеты кубков среди женщин</a></li>
@@ -65,90 +99,52 @@
     	</div>
   </aside>
   <article>
-  	<center><p style="font-size:18px;">Просмотр результатов гонок</p></center>
-	<p style="font-size: 14px;">Для просмотра результатов необходимой гонки пожалуйста выберете следующие параметры:</p>
-	<p>Кубок</p>
-<p>	<select>
-  <option>Кубок мира</option>
-  <option>Кубок IBU</option>
-  <option>Кубок Европы</option>
-  <option>Кубок Северной Америки</option></p>
-</select>
-
-<p>Пол</p>
-<p>	<select>
-  <option>Мужчины</option>
-  <option>Женщины</option></p>
-</select>
-
-<p>Гонка</p>
-<p>	<select>
-  <option>Спринт</option>
-  <option>Индивидуальная гонка</option>
-  <option>Гонка преследования</option>
-  <option>Масс-старт</option></p>
-</select>
+  	<p style="font-size:18px;"><center>Просмотр результатов гонок</center></p>
+  
+		<p><b>Выберите кубок и гонку:</b><br>
+		<form action="results.jsp" method="post">
+			<select name="cup_race">
+			<%
+			Collection<Cup> cuplist = ServiceFactory.DEFAULT.getCupService()
+									.getAllEntites();
+							pageContext.setAttribute("cuplist", cuplist);
+						%>
+				<c:forEach var="cup" items="${cuplist}">
+							<%
+								Cup cp = (Cup) pageContext.getAttribute("cup");
+									Collection<Race> lst_race = ServiceFactory.DEFAULT
+											.getCupService().getRecesFromCup(cp);
+									pageContext.setAttribute("rc_lst", lst_race);
+							%>
+							<c:forEach var="race" items="${rc_lst}">
+								<option>${cup.cupname}-${race.racename}</option>
+							</c:forEach>
+						</c:forEach>
+			</select><input type="submit" value="Показaть">
+  </form>
 <div class="table">
-  	      <table width="80%" border="1" cellspacing="0" cellpadding="4" align="center">
-		  <tr>
-		  <th>Позиция</th>
-		  <th>Спортсмен</th>
-		  <th>Страна</th>
-		  <th>Количество промахов</th>
-		  <th>Время на финише</th>
-		  <th>Время без стрельбы</th>
-		  <th>Количество заработанных очков</th>
-		  
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>1</td>
-		  <td>Иванов</td>
-		  <td>Украина</td>
-		  <td>0</td>
-		  <td>10,00</td>
-		  <td>9,00</td>
-		  <td>100</td>
-		  
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>2</td>
-		  <td>Петров</td>
-		  <td>Россия</td>
-		  <td>1</td>
-		  <td>10,25</td>
-		  <td>9,15</td>
-		  <td>93</td>
-		  
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>3</td>
-		  <td>Сидоров</td>
-		  <td>Конго</td>
-		  <td>10</td>
-		  <td>15,25</td>
-		  <td>10,00</td>
-		  <td>84</td>
-		  
-		  </tr>
-		  
-		  <tr>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  
-		  </tr>
-		  </table>
-		  </div>
+  	      <div class="table">
+				<table width="100%">
+					<tr>
+						<th width="30%">Спортсмен</th>
+						<th width="10%">Позиция</th>
+						<th width="10%">Количество промахов</th>
+						<th width="30%">Общее время гонки</th>
+						<th width="30%">Время гонки на лыжне</th>
+
+					</tr>
+					<c:forEach var="crc" items="${cur_res}">
+						<tr>
+							<td>${crc.sportsman.fio}</td>
+							<td>${crc.place}</td>
+							<td>${crc.shfalt}</td>
+							<td>${crc.alltime}</td>
+							<td>${crc.timewoshotting}</td>
+						</tr>
+						<form></form>
+					</c:forEach>
+		</table>
+			</div>
   </article>
   <div class="footer">
   <footer>

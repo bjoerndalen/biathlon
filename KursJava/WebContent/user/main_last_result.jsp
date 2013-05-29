@@ -1,3 +1,4 @@
+<%@page import="DBAdmin.ForLastRace"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
@@ -34,6 +35,7 @@
     		</div>
             	<nav>
             	<ul class="nav">
+            	<li><a href="main_last_result.jsp" title="Главная" target="_self">Главная</a></li>
                 	<li><a href="countries.jsp" title="Зачет стран" target="_self">Зачет стран</a></li>
                     <li><a href="man.jsp" title="Зачеты кубков среди мужчин" target="_self">Зачеты кубков среди мужчин</a></li>
                     <li><a href="lady.jsp" title="Зачеты кубков среди женщин" target="_self">Зачеты кубков среди женщин</a></li>
@@ -67,7 +69,6 @@
   <article>
 
   	<center><p style="font-size:18px;">Результаты поледней гонки:</p></center>
-	<p style="font-size:18px;">Результаты гонки спринт, мужчины, 10км. Этап кубка мира в Сочи.</p>
 	  <div class="table">
   	      <table width="80%" border="1" cellspacing="0" cellpadding="4" align="center">
 		  <tr>
@@ -75,58 +76,21 @@
 		  <th>Спортсмен</th>
 		  <th>Страна</th>
 		  <th>Количество промахов</th>
-		  <th>Время на финише</th>
-		  <th>Время без стрельбы</th>
-		  <th>Количество заработанных очков</th>
-		  
+		  <th>Время на финише</th>		  
 		  </tr>
-		  
-		  
+		  <%
+		  Collection<ForLastRace> rs_lst = ServiceFactory.DEFAULT.getUserService().getLastRaceResults();
+		  pageContext.setAttribute("rs_lst", rs_lst);
+		  %>
+		  <c:forEach var="buf" items="${rs_lst}">
 		  <tr>
-		  <td>1</td>
-		  <td>Иванов</td>
-		  <td>Украина</td>
-		  <td>0</td>
-		  <td>10,00</td>
-		  <td>9,00</td>
-		  <td>100</td>
-		  
+		  <td>${buf.position}</td>
+		  <td>${buf.name}</td>
+		  <td>${buf.cntr}</td>
+		  <td>${buf.fault}</td>
+		  <td>${buf.alltime}</td>
 		  </tr>
-		  
-		  
-		  <tr>
-		  <td>2</td>
-		  <td>Петров</td>
-		  <td>Россия</td>
-		  <td>1</td>
-		  <td>10,25</td>
-		  <td>9,15</td>
-		  <td>93</td>
-		  
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>3</td>
-		  <td>Сидоров</td>
-		  <td>Конго</td>
-		  <td>10</td>
-		  <td>15,25</td>
-		  <td>10,00</td>
-		  <td>84</td>
-		  
-		  </tr>
-		  
-		  <tr>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  
-		  </tr>
+		  </c:forEach>
 		  </table>
 		  </div>
   </article>

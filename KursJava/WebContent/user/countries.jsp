@@ -1,3 +1,4 @@
+<%@page import="DBAdmin.ForNewUser"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="service.ServiceFactory"%>
@@ -34,6 +35,7 @@
     		</div>
             	<nav>
             	<ul class="nav">
+            	<li><a href="main_last_result.jsp" title="Главная" target="_self">Главная</a></li>
                 	<li><a href="countries.jsp" title="Зачет стран" target="_self">Зачет стран</a></li>
                     <li><a href="man.jsp" title="Зачеты кубков среди мужчин" target="_self">Зачеты кубков среди мужчин</a></li>
                     <li><a href="lady.jsp" title="Зачеты кубков среди женщин" target="_self">Зачеты кубков среди женщин</a></li>
@@ -71,40 +73,19 @@
 		  <tr>
 		  <th>Позиция</th>
 		  <th>Страна</th>
-		  <th>Количество выступающих спортсменов</th>
 		  <th>Количество очков</th>
 		  </tr>
-		  
-		  
+	<%
+	Collection<ForNewUser> rating_cntr = ServiceFactory.DEFAULT.getUserService().getCountryRating();
+	pageContext.setAttribute("rating_cntr", rating_cntr);
+	%>	  
+		  <c:forEach var="cn" items="${rating_cntr}">
 		  <tr>
-		  <td>1</td>
-		  <td>Украина</td>
-		  <td>5</td>
-		  <td>100</td>
+		  <td>${cn.cntr}</td>
+		  <td>${cn.pol}</td>
+		  <td>${cn.role }</td>
 		  </tr>
-		  
-		  
-		  <tr>
-		  <td>2</td>
-		  <td>Россия</td>
-		  <td>2</td>
-		  <td>93</td>
-		  </tr>
-		  
-		  
-		  <tr>
-		  <td>3</td>
-		  <td>Конго</td>
-		  <td>1</td>
-		  <td>84</td>
-		  </tr>
-		  
-		  <tr>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  <td>...</td>
-		  </tr>
+</c:forEach>
 		  </table>
 		  </div>
   </article>

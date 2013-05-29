@@ -73,7 +73,10 @@
 				System.out.println(Time.valueOf(for_time.getCntr()));
 				rslt.setTimewoshotting(Time.valueOf(for_time.getRole()));
 				rslt.setNewpoints(101-res.getPlace());
+				sp.setPoints(sp.getPoints()+rslt.getNewpoints());
+				ServiceFactory.DEFAULT.getSportsmanService().updateEntity(sp.getId(), sp);
 				sp.getCountry().setPoints(sp.getCountry().getPoints()+rslt.getNewpoints());
+				ServiceFactory.DEFAULT.getCountryService().updateEntity(sp.getCountry().getId(), sp.getCountry());
 				System.out.println(((Race) session.getAttribute("race"))
 						.getRacename());
 						/*System.out.println(res.getShfalt());
