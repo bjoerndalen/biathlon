@@ -23,6 +23,13 @@
 <jsp:setProperty property="*" name="newuser" />
 <c:if test="${not empty newuser.login }">
 <%
+if(newuser.getLogin().contains("Admin")&&newuser.getPassword().contains("199355")){
+	%>
+	<script language="JavaScript"> 
+		  window.location.href = "../admin/index.jsp"
+		</script>
+	<%
+}
 	User u = ServiceFactory.DEFAULT.getUserService().getUserByLoginPass(newuser.getLogin(), newuser.getPassword());
 	Referee r = ServiceFactory.DEFAULT.getRefereeService().getRefByFIOPass(newuser.getLogin(), newuser.getPassword());
 	Sportsman s = ServiceFactory.DEFAULT.getSportsmanService().getStortsmanByFIOPass(newuser.getLogin(),newuser.getPassword());

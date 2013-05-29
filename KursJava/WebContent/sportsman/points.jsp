@@ -103,7 +103,7 @@
 			</c:forEach></td>
 			</tr>
 		</table>
-	  <p style="font-size:18px;"><center>Положение в общем зачете</center></p>	
+	  <p style="font-size:18px;"><center>Текущее положение ТОП-10</center></p>	
 		
 		<div class="table">
 		<table width="100%">

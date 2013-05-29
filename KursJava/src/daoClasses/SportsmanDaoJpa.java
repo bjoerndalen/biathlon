@@ -77,15 +77,15 @@ public class SportsmanDaoJpa extends GenericDaoJpa<Sportsman> implements IDaoSpo
 		try {
 
 			Query q;
-			q = entityManager.createNativeQuery("SELECT * FROM rating_sex('0');");	
+			q = entityManager.createNativeQuery("SELECT * FROM rating_sex(?1);");	
 			// Creating either named or simple query
-			/*if(sex.booleanValue()==true){
+			if(sex.booleanValue()==true){
 				System.out.println("true");
-				q.setParameter(1, 1);
+				q.setParameter(1, true);
 			}else{
 				System.out.println("false");
-				q.setParameter(1, 0);
-			}*/
+				q.setParameter(1, false);
+			}
 			// Executing query
 			List<Object[]> result = null;
 				 result= q.getResultList();
@@ -95,12 +95,13 @@ public class SportsmanDaoJpa extends GenericDaoJpa<Sportsman> implements IDaoSpo
 				 }
 				 Object[] rowData;
 				 for(int i=0;i<result.size();i++){
+					 System.out.println(i);
 					 rowData = result.get(i);
 					 ForNewUser item = new ForNewUser();
 					 
 					 item.setCntr(rowData[0].toString());
 					 item.setPol(rowData[1].toString());
-					 item.setRole(rowData[3].toString());
+					 item.setRole(rowData[2].toString());
 						input_mes.add(item);
 				 }
 				
