@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="KursJava" default="compile" basedir=".">
+    <!--__________________ Properties__________________-->
+    <property file="build.properties"/>
+    <property file="${user.home}/build.properties"/>
+    <!--______________Files and Directories ____________-->
+    
+    
+</project>
