@@ -116,7 +116,7 @@ html>
   <p>Country: </b>
   <select name="cntr">
   <%
-	  Collection<Country> lst = DBAdminWorking.getInstance().getCountry();
+	  Collection<Country> lst = ServiceFactory.DEFAULT.getCountryService().getAllEntites();
 	  pageContext.setAttribute("lst",lst );
   %>
   <c:forEach var="buf" items="${lst}">

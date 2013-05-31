@@ -246,7 +246,7 @@ public abstract class GenericDaoJpa<T extends SystemEntity> {
 		} catch (Exception e) {
 
 			// Catching exceptions and rollback of transaction
-			entityManager.getTransaction().rollback();
+			//entityManager.getTransaction().rollback();
 
 			// throwing exception further
 			throw new PersistenceException(e);

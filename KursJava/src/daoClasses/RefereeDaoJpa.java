@@ -17,8 +17,8 @@ public class RefereeDaoJpa extends GenericDaoJpa<Referee> implements IDaoReferee
 
 	@Override
 	public Referee getRefereeByName(String name) throws PersistenceException {
-		String query = "Select x From referee x where x.fio="+name+";";
-		return executeQuery(query,false,true,null);
+		String query = "Select x From Referee x where x.fio like ?1";
+		return executeQuery(query,false,true,name);
 	}
 
 	@Override

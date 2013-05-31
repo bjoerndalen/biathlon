@@ -25,11 +25,12 @@
 	<jsp:setProperty property="*" name="msg" />
 	<c:if test="${not empty msg.whomname }">
 	<%
+	System.out.println(msg.getWhomname());
 	Referee ref = ServiceFactory.DEFAULT.getRefereeService().getRefereeByName(msg.getWhomname());
 	
 	
 	System.out.println(ref.getFio());
-	System.out.println(((Referee)session.getAttribute("sportsman")).getFio());
+	//System.out.println(((Referee)session.getAttribute("sportsman")).getFio());
 	System.out.println(msg.getTextmsg());
 	Sportsman sp = ServiceFactory.DEFAULT.getSportsmanService().getEntityById(((Sportsman)session.getAttribute("sportsman")).getId());
 	
